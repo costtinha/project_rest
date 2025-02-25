@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/customer")
 public class CustomerControl {
     private final CustomerService service;
 
@@ -18,20 +19,20 @@ public class CustomerControl {
         this.service = service;
     }
 
-    @GetMapping("/customer")
-    public List<PaymentResponseDto> findCustomer(){
+    @GetMapping()
+    public List<CustomerResponseDto> findCustomer(){
         return service.findCustomer();
     }
 
-    @PostMapping("/customer")
-    public PaymentResponseDto saveCustomer(
+    @PostMapping()
+    public CustomerResponseDto saveCustomer(
            @Valid @RequestBody CustomerDto dto
     ){
         return service.saveCustomer(dto);
     }
 
-    @GetMapping("/customer/{customer-id}")
-    public PaymentResponseDto findCustomerById(
+    @GetMapping("/{customer-id}")
+    public CustomerResponseDto findCustomerById(
             @PathVariable("customer-id") int id
     ){
         return service.findCustomerById(id);
@@ -41,7 +42,28 @@ public class CustomerControl {
     public List<Customer> findCustomerTotal(){
         return service.findCustomerTotal();
     }
-    @DeleteMapping("/customer/{customer-id}")
+    @GetMapping("/name/{first-name}/{last-name}")
+    public List<CustomerResponseDto> findCustomerByFullName(
+            @PathVariable("first-name") String FirstName,
+            @PathVariable("last-name") String LastName
+    ){
+        return service.findCustomerByFullName(FirstName,LastName);
+    }
+    @GetMapping("/state/{state}")
+    public List<CustomerResponseDto> findCustomersByState(
+            @PathVariable("state") String state
+    ){
+        return service.findCustomerByState(state);
+    }
+
+    @GetMapping("/city/{city}")
+    public List<CustomerResponseDto> findCustomersByCity(
+            @PathVariable("city") String city
+    ){
+        return service.findCustomersByCity(city);
+    }
+
+    @DeleteMapping("/{customer-id}")
     public void deleteCustomerById(
             @PathVariable("customer-id") int id
     ){

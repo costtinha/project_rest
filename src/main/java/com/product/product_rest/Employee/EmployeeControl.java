@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeControl {
     private final EmployeeService service;
 
@@ -18,19 +19,19 @@ public class EmployeeControl {
         this.service = service;
     }
 
-    @GetMapping("/employee")
+    @GetMapping()
     public List<EmployeeResponseDto> findEmployee(){
         return service.findEmployee();
     }
 
-    @PostMapping("/employee")
+    @PostMapping()
     public EmployeeResponseDto saveEmployee(
             @Valid @RequestBody EmployeeDto dto
     ){
         return service.saveEmployee(dto);
     }
 
-    @GetMapping("/employee/{employee-id}")
+    @GetMapping("/{employee-id}")
     public EmployeeResponseDto findEmployeeById(
             @PathVariable("employee-id") int id
     ){
@@ -41,7 +42,23 @@ public class EmployeeControl {
     public List<Employee> findEmployeeTotal(){
         return service.findEmployeeTotal();
     }
-    @DeleteMapping("/employee/{employee-id}")
+
+    @GetMapping("/jobtitle/{job-title}")
+    public List<EmployeeResponseDto> findEmployeeByJobTitle(
+            @PathVariable("job-title") String JobTitle
+    ){
+        return service.findEmployeeByJobTitle(JobTitle);
+    }
+
+    @GetMapping("/employee-email/{email}")
+    public EmployeeResponseDto findEmployeeByEmail(
+            @PathVariable("email") String email
+    ){
+        return service.findEmployeeByEmail(email);
+    }
+
+
+    @DeleteMapping("/{employee-id}")
     public void deleteEmployeeById(
             @PathVariable("employee-id") int id
     ){

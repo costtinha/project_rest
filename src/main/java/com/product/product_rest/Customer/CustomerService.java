@@ -15,18 +15,18 @@ public class CustomerService {
         this.mapper = mapper;
     }
 
-     public List<PaymentResponseDto> findCustomer(){
+     public List<CustomerResponseDto> findCustomer(){
         return repository.findAll()
                 .stream()
                 .map(mapper::toCustomerResponseDto)
                 .collect(Collectors.toList());
      }
 
-     public PaymentResponseDto saveCustomer(CustomerDto dto){
+     public CustomerResponseDto saveCustomer(CustomerDto dto){
         return mapper.toCustomerResponseDto(repository.save(mapper.toCustomer(dto)));
      }
 
-     public PaymentResponseDto findCustomerById(int id){
+     public CustomerResponseDto findCustomerById(int id){
         return mapper.toCustomerResponseDto(repository.findById(id).orElse(null));
      }
 
@@ -39,6 +39,25 @@ public class CustomerService {
      }
 
 
+    public List<CustomerResponseDto> findCustomerByFullName(String firstName, String lastName)
+    {
+        return repository.findCustomerByName(firstName,lastName)
+                .stream()
+                .map(mapper::toCustomerResponseDto)
+                .collect(Collectors.toList());
+    }
 
+    public List<CustomerResponseDto> findCustomerByState(String state) {
+        return repository.findCustomerByState(state)
+                .stream()
+                .map(mapper::toCustomerResponseDto)
+                .collect(Collectors.toList());
+    }
 
+    public List<CustomerResponseDto> findCustomersByCity(String city) {
+        return repository.findCustomerByCity(city)
+                .stream()
+                .map(mapper::toCustomerResponseDto)
+                .collect(Collectors.toList());
+    }
 }

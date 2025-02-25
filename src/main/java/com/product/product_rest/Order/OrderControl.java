@@ -11,25 +11,26 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/order")
 public class OrderControl {
     private final OrderService service;
 
     public OrderControl(OrderService service) {
         this.service = service;
     }
-    @GetMapping("/order")
+    @GetMapping()
     public List<OrderResponseDto> findOrder(){
         return service.findOrder();
     }
 
-    @PostMapping("/order")
+    @PostMapping()
     public OrderResponseDto saveOrder(
             @Valid @RequestBody OrderDto dto
     ){
         return service.saveOrder(dto);
     }
 
-    @GetMapping("/order/{order-id}")
+    @GetMapping("/{order-id}")
     public OrderResponseDto findOrderById(
             @PathVariable("order-id") int id
     ){
@@ -41,7 +42,14 @@ public class OrderControl {
         return service.findOrderTotal();
     }
 
-    @DeleteMapping("/order/{order-id}")
+    @GetMapping("/status/{status-var}")
+    public List<OrderResponseDto> findOrderByStatus(
+            @PathVariable("status-var") int status
+    ){
+        return service.findOrderByStatus(status);
+    }
+
+    @DeleteMapping("/{order-id}")
     public void deleteOrderById(
             @PathVariable("order-id") int id
     ){

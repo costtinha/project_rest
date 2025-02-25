@@ -7,6 +7,11 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries(
+        {
+                @NamedQuery(name ="ProductLine.findProductLineByImage", query = "SELECT p FROM ProductLine p WHERE p.Image = :image")
+        }
+)
 public class ProductLine {
 
     @Id

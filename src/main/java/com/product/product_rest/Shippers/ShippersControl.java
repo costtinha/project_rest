@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/shippers")
 public class ShippersControl {
 
     private final ShippersService service;
@@ -19,23 +20,29 @@ public class ShippersControl {
         this.service = service;
     }
 
-    @GetMapping("/shippers")
+    @GetMapping()
     public List<ShippersDto> findShippers() {
         return service.findShippers();
     }
 
-    @PostMapping("/shippers")
+    @PostMapping()
     public ShippersDto saveShippers(
             @Valid @RequestBody ShippersDto dto
     ) {
         return service.saveShippers(dto);
     }
 
-    @GetMapping("/shippers/{shippers-id}")
+    @GetMapping("/{shippers-id}")
     public ShippersDto findShipperById(
             @PathVariable("shippers-id") int id
     ) {
         return service.findShippersById(id);
+    }
+    @GetMapping("/company-name/{company-name-var}")
+    public List<ShippersDto> findShippersByCompanyName(
+            @PathVariable("company-name-var") String companyName
+    ){
+        return service.findShippersByCompanyName(companyName);
     }
 
     @GetMapping("/shippersTotal")
@@ -43,7 +50,7 @@ public class ShippersControl {
         return service.findShippersTotal();
     }
 
-    @DeleteMapping("/shippers/{shippers-id}")
+    @DeleteMapping("/{shippers-id}")
     public void deleteShippersById(
             @PathVariable("shippers-id") int id
     ) {

@@ -41,10 +41,11 @@ public class StoreService {
     }
 
 
-
-
-
-
-
+    public List<StoreDto> findStoreByName(String StoreName) {
+        return repository.findStoreByName(StoreName)
+                .stream()
+                .map(mappers::toStoreDto)
+                .collect(Collectors.toList());
+    }
 }
 

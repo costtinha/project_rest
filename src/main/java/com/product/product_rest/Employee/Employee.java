@@ -9,6 +9,10 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Employee.findEmployeeByJobTitle", query = "SELECT e FROM Employee e WHERE e.JobTitle = :JobTitle"),
+        @NamedQuery(name = "Employee.findEmployeeByEmail", query = "SELECT e FROM Employee e WHERE e.Email = :email")
+})
 public class Employee {
     @Id
     @GeneratedValue

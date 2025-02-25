@@ -13,6 +13,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "\"order\"")
+@NamedQueries({
+        @NamedQuery(name = "order.findOrderByStatus", query = "SELECT o FROM Order o WHERE o.status = :status")
+})
 public class Order {
 
     @Id
@@ -28,7 +31,7 @@ public class Order {
     private LocalDateTime OrderDate;
     private LocalDateTime RequiredDate;
     private LocalDateTime ShippedDate;
-    private int Status;
+    private int status;
     private String Coments;
 
     @ManyToOne
@@ -41,7 +44,7 @@ public class Order {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(
-            name = "StoreId;"
+            name = "StoreId"
     )
     private Store StoreId;
 
@@ -58,7 +61,7 @@ public class Order {
         OrderDate = orderDate;
         RequiredDate = requiredDate;
         ShippedDate = shippedDate;
-        Status = status;
+        this.status = status;
         Coments = coments;
         ShippingId = shipId;
         StoreId = storeId;
@@ -109,11 +112,11 @@ public class Order {
     }
 
     public int getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(int status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getComents() {

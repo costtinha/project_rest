@@ -11,29 +11,36 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-public class ProductContro {
+@RequestMapping("/product")
+public class ProductControl {
     private final ProductService service;
 
-    public ProductContro(ProductService service) {
+    public ProductControl(ProductService service) {
         this.service = service;
     }
 
-    @GetMapping("/product")
+    @GetMapping()
     public List<ProductResponseDto> findProduct(){
         return service.findProduct();
     }
-    @PostMapping("/product")
+    @PostMapping()
     public ProductResponseDto saveProduct(
             @Valid @RequestBody ProductDto dto
     ){
         return service.saveProduct(dto);
     }
 
-    @GetMapping("/product/{p-id}")
+    @GetMapping("/{p-id}")
     public ProductResponseDto findProductById(
             @PathVariable("p-id") int id
     ){
         return service.findProductById(id);
+    }
+    @GetMapping("/vendor/{vendor-var}")
+    public List<ProductResponseDto> findProductByVendor(
+            @PathVariable("vendor-ver") String vendor
+    ){
+        return service.findProductByVendor(vendor);
     }
 
     @GetMapping("/productTotal")
@@ -41,7 +48,7 @@ public class ProductContro {
         return service.findProductTotal();
     }
 
-    @DeleteMapping("/product/{p-id}")
+    @DeleteMapping("/{p-id}")
     public void deleteProductById(
             @PathVariable("p-id") int id
     ){

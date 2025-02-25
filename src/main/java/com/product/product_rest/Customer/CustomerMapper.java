@@ -19,8 +19,8 @@ public class CustomerMapper {
                 dto.creditLimit());
     }
 
-    public PaymentResponseDto toCustomerResponseDto(Customer customer){
-            return new PaymentResponseDto(customer.getSalesRepEmployeeNum().getEmployeeId(),
+    public CustomerResponseDto toCustomerResponseDto(Customer customer){
+            return new CustomerResponseDto(customer.getSalesRepEmployeeNum().getEmployeeId(),
                     customer.getLastName(),
                     customer.getFirstName(),
                     customer.getPhone(),

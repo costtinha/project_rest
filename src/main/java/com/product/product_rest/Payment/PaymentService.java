@@ -37,4 +37,10 @@ public class PaymentService {
         repository.deleteById(ck);
     }
 
+    public List<PaymentResponseDto> findPaymentByCustomer(int customerId) {
+        return repository.findPaymentByCustomerId(customerId)
+                .stream()
+                .map(mapper::toPaymentResponseDto)
+                .collect(Collectors.toList());
+    }
 }

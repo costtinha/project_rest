@@ -2,14 +2,14 @@ package com.product.product_rest.Shippers;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.product.product_rest.Order.Order;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Shippers.findShippersByCompanyName", query = "SELECT s FROM Shippers s WHERE s.companyName = :companyName")
+})
 public class Shippers {
     @Id
     @GeneratedValue

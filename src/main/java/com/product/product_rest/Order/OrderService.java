@@ -38,4 +38,10 @@ public class OrderService {
         repository.deleteById(id);
     }
 
+    public List<OrderResponseDto> findOrderByStatus(int status) {
+        return repository.findOrderByStatus(status)
+                .stream()
+                .map(mapper::toOrderResponseDto)
+                .collect(Collectors.toList());
+    }
 }

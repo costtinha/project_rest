@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/office")
 public class OfficeControl {
     private final OfficeService service;
 
@@ -18,19 +19,19 @@ public class OfficeControl {
         this.service = service;
     }
 
-    @GetMapping("/office")
+    @GetMapping()
     public List<OfficeResponseDto> findOffice(){
         return service.findOffice();
     }
 
-    @PostMapping("/office")
+    @PostMapping()
     public OfficeResponseDto save(
             @Valid @RequestBody OfficeDto dto
     ){
         return service.saveOffice(dto);
     }
 
-    @GetMapping("/office/{office-id}")
+    @GetMapping("/{office-id}")
     public OfficeResponseDto findById(
             @PathVariable("office-id") int id){
         return service.findById(id);
@@ -41,7 +42,27 @@ public class OfficeControl {
         return service.findOfficeTotal();
     }
 
-    @DeleteMapping("/office/{office-id}")
+    @GetMapping("/city/{city-name}")
+    public List<OfficeResponseDto> findOfficeByCity(
+            @PathVariable("city-name") String city
+    ){
+        return service.findOfficeByName(city);
+    }
+    @GetMapping("/state/{state-name}")
+    public List<OfficeResponseDto> findOfficeByState(
+            @PathVariable("state-name" ) String state
+    ){
+        return service.findOfficeByState(state);
+    }
+
+    @GetMapping("/country/{country-name}")
+    public List<OfficeResponseDto> findOfficeByCountry(
+            @PathVariable("country-name") String country
+    ){
+        return service.findOfficeByCountry(country);
+    }
+
+    @DeleteMapping("/{office-id}")
     public void DeleteOffice(
             @PathVariable("office-id") int id
     ){

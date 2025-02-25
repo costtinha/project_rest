@@ -7,6 +7,11 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Office.findOfficeByCity", query = "SELECT o FROM Office o WHERE o.City = :city"),
+        @NamedQuery(name = "Office.findOfficeByState", query = "SELECT o FROM Office o WHERE o.State = :state"),
+        @NamedQuery(name = "Office.findOfficeByCountry", query = "SELECT o FROM Office o WHERE o.Country = :country")
+})
 public class Office {
     @Id
     @GeneratedValue

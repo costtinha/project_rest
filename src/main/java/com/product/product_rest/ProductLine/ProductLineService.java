@@ -39,5 +39,10 @@ public class ProductLineService {
     }
 
 
-
+    public List<ProductLineResponseDto> findProductLineByImage(String image) {
+        return repository.findProductLineByImage(image)
+                .stream()
+                .map(mapper::toProductLineResponseDto)
+                .collect(Collectors.toList());
+    }
 }

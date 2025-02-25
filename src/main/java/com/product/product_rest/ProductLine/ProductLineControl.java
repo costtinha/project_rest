@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/productLine")
 public class ProductLineControl {
     private final ProductLineService service;
 
@@ -18,22 +19,28 @@ public class ProductLineControl {
         this.service = service;
     }
 
-    @GetMapping("/productLine")
+    @GetMapping()
     public List<ProductLineResponseDto> findProductLine(){
         return service.findProductLine();
     }
-    @PostMapping("/productLine")
+    @PostMapping()
     public ProductLineResponseDto saveProductLine(
             @Valid @RequestBody ProductLineDto dto
     ){
         return service.saveProductLine(dto);
     }
 
-    @GetMapping("/productLine/{pl-id}")
+    @GetMapping("/{pl-id}")
     public ProductLineResponseDto findProductLineById(
             @PathVariable("pl-id") int id
     ){
         return service.findProductLineById(id);
+    }
+    @GetMapping("/image/{image-var}")
+    public List<ProductLineResponseDto> findProductLineByImage(
+            @PathVariable("image-var") String image
+    ){
+        return service.findProductLineByImage(image);
     }
 
     @GetMapping("/productLineTotal")
@@ -41,7 +48,7 @@ public class ProductLineControl {
         return service.findProductLineTotal();
     }
 
-    @DeleteMapping("/productLine/{pl-id}")
+    @DeleteMapping("/{pl-id}")
     public void deleteProductLineById(
             @PathVariable("pl-id") int id
     ){

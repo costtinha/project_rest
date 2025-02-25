@@ -2,13 +2,16 @@ package com.product.product_rest.Store;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.product.product_rest.Order.Order;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
+@NamedQueries(
+        {
+                @NamedQuery(name = "Store.findStoreByName", query = "SELECT s FROM Store s WHERE s.StoreName = :StoreName")
+        }
+)
 public class Store {
     @Id
     @GeneratedValue

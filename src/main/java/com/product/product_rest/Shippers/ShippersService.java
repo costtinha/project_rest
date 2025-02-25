@@ -39,4 +39,10 @@ public class ShippersService {
     }
 
 
+    public List<ShippersDto> findShippersByCompanyName(String companyName) {
+        return repository.findShippersByCompanyName(companyName)
+                .stream()
+                .map(mapper::toShippersDto)
+                .collect(Collectors.toList());
+    }
 }

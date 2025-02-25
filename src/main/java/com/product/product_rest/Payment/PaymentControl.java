@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/payment")
 public class PaymentControl {
 
     private final PaymentService service;
@@ -19,30 +20,37 @@ public class PaymentControl {
         this.service = service;
     }
 
-    @GetMapping("/payment")
+    @GetMapping()
     public List<PaymentResponseDto> findPayment(){
         return service.findPayment();
     }
 
-    @PostMapping("/payment")
+    @PostMapping()
     public PaymentResponseDto savePayment(
            @Valid @RequestBody PaymentDto dto
     ){
         return service.savePayment(dto);
     }
 
-    @GetMapping("/payment/{payment-checkNum}")
+    @GetMapping("/{payment-checkNum}")
     public PaymentResponseDto findPaymentById(
             @PathVariable("payment-CheckNum") String CheckNum
     ){
         return service.findPaymentByCheckNum(CheckNum);
     }
 
+    @GetMapping("/customer/{customer-id}")
+    public List<PaymentResponseDto> findPaymentByCustomer(
+            @PathVariable("customer-id") int customerId
+    ){
+        return service.findPaymentByCustomer(customerId);
+    }
+
     @GetMapping("/paymentTotal")
     public List<Payment> findPaymentTotal(){
         return service.findPaymentTotal();
     }
-    @DeleteMapping("/customer/{payment-checkNum}")
+    @DeleteMapping("/{payment-checkNum}")
     public void deleteByCheckNum(
             @PathVariable("payment-checkNum") String ck
     ){

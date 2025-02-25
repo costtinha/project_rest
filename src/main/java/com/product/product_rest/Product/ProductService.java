@@ -38,4 +38,10 @@ public class ProductService {
         repository.deleteById(id);
     }
 
+    public List<ProductResponseDto> findProductByVendor(String vendor) {
+        return repository.findProductByVendor(vendor)
+                .stream()
+                .map(mapper::toProductResponseDto)
+                .collect(Collectors.toList());
+    }
 }

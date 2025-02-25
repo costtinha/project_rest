@@ -41,7 +41,24 @@ public class OfficeService {
     }
 
 
+    public List<OfficeResponseDto> findOfficeByName(String city) {
+        return repository.findOfficeByCity(city)
+                .stream()
+                .map(mapper::officeResponseDto)
+                .collect(Collectors.toList());
+    }
 
+    public List<OfficeResponseDto> findOfficeByState(String state) {
+        return repository.findOfficeByState(state)
+                .stream()
+                .map(mapper::officeResponseDto)
+                .collect(Collectors.toList());
+    }
 
-
+    public List<OfficeResponseDto> findOfficeByCountry(String country) {
+        return repository.findOfficeByCountry(country)
+                .stream()
+                .map(mapper::officeResponseDto)
+                .collect(Collectors.toList());
+    }
 }

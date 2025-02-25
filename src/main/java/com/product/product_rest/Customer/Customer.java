@@ -11,6 +11,13 @@
     import java.util.List;
 
     @Entity
+    @NamedQueries(
+            {
+                    @NamedQuery(name = "Customer.findCustomerByName", query = "SELECT c FROM Customer c WHERE c.FirstName = :firstName AND c.LastName = :lastName"),
+                    @NamedQuery(name = "Customer.findCustomerByState", query = "SELECT c FROM Customer c WHERE c.State = :state"),
+                    @NamedQuery(name = "Customer.findCustomerByCity", query = "SELECT c FROM Customer c WHERE c.City = :city" )
+            }
+    )
     public class Customer {
         @Id
         @GeneratedValue

@@ -10,6 +10,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
+@NamedQueries(
+        {
+                @NamedQuery(name="Product.findProductByVendor ", query = "SELECT p FROM Product p  WHERE p.vendor = :vendor")
+        }
+)
 public class Product {
     @Id
     @GeneratedValue

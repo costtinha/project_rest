@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Payment.findPaymentByCustomerId", query = "SELECT p FROM Payment p WHERE p.CustomerId.Id = :customerId")
+})
 public class Payment {
     @Id
     private String CheckNum;

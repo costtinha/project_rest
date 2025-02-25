@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/store")
 public class StoreControl {
     public StoreService service;
 
@@ -18,23 +19,29 @@ public class StoreControl {
         this.service = service;
     }
 
-    @GetMapping("/store")
+    @GetMapping()
     public List<StoreDto> findStore(){
         return service.findStore();
     }
 
-    @PostMapping("/store")
+    @PostMapping()
     public StoreDto saveStore(
             @Valid @RequestBody StoreDto dto
     ){
         return service.saveStore(dto);
     }
 
-    @GetMapping("/store/{store-id}")
+    @GetMapping("/{store-id}")
     public StoreDto findStoreById(
             @PathVariable("store-id") int id
     ){
         return service.findStoreById(id);
+    }
+    @GetMapping("/store-name/{store-name-var}")
+    public List<StoreDto> findStoreByName(
+            @PathVariable("store-name-var") String StoreName
+    ){
+        return service.findStoreByName(StoreName);
     }
 
     @GetMapping("/storeTotal")
@@ -42,7 +49,7 @@ public class StoreControl {
         return service.findStoreTotal();
     }
 
-    @DeleteMapping("/store/{store-id}")
+    @DeleteMapping("/{store-id}")
     public void deleteStoreById(
             @PathVariable("store-id") int id
     ){

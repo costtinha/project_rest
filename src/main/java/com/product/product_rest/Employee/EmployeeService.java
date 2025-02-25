@@ -39,6 +39,14 @@ public class EmployeeService {
     }
 
 
+    public List<EmployeeResponseDto> findEmployeeByJobTitle(String jobTitle) {
+        return repository.findEmployeeByJobTitle(jobTitle)
+                .stream()
+                .map(mapper::toEmployeeResponseDto)
+                .collect(Collectors.toList());
+    }
 
-
+    public EmployeeResponseDto findEmployeeByEmail(String email) {
+        return mapper.toEmployeeResponseDto(repository.findEmployeeByEmail(email));
+    }
 }
