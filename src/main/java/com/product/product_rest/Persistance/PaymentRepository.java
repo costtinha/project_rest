@@ -1,5 +1,6 @@
-package com.product.product_rest.Payment;
+package com.product.product_rest.Persistance;
 
+import com.product.product_rest.Payment.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

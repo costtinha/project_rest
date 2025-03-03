@@ -1,20 +1,15 @@
 package com.product.product_rest.Office;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.product.product_rest.Employee.Employee;
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-@Entity
-@NamedQueries({
-        @NamedQuery(name = "Office.findOfficeByCity", query = "SELECT o FROM Office o WHERE o.City = :city"),
-        @NamedQuery(name = "Office.findOfficeByState", query = "SELECT o FROM Office o WHERE o.State = :state"),
-        @NamedQuery(name = "Office.findOfficeByCountry", query = "SELECT o FROM Office o WHERE o.Country = :country")
-})
-public class Office implements Serializable {
 
+@RedisHash(value = "Office", timeToLive = 3600)
+public class OfficeCache implements Serializable {
     @Id
-    @GeneratedValue
     private int Code;
     private String City;
     private String Phone;
@@ -23,15 +18,11 @@ public class Office implements Serializable {
     private String State;
     private String Country;
     private int PostalCode;
-    @Column(
-            length = 100
-    )
     private String Territory;
-    @OneToMany(mappedBy = "OfficeCode")
-    @JsonManagedReference
-    private List<Employee> employees;
 
-    public Office(String city,
+    private List<Integer> employeesId;
+
+    public OfficeCache(String city,
                   String phone,
                   String address1,
                   String address2, String state,
@@ -47,7 +38,7 @@ public class Office implements Serializable {
         Territory = territory;
     }
 
-    public Office() {
+    public OfficeCache() {
     }
 
 
@@ -123,11 +114,11 @@ public class Office implements Serializable {
         Territory = territory;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public List<Integer> getEmployeesId() {
+        return employeesId;
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+    public void setEmployeesId(List<Integer> employeesId) {
+        this.employeesId = employeesId;
     }
 }

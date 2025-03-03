@@ -1,5 +1,6 @@
 package com.product.product_rest.Store;
 
+import com.product.product_rest.Persistance.StoreRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
